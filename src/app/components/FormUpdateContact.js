@@ -71,20 +71,22 @@ export default function FormUpdateContact({ id }) {
 
     return mounted && (
         <>
-            <div className='container-fluid'>
+           <h2>Update Information</h2>
+
                 <form onSubmit={formHandle}>
                     <div className='mb-2'>
                         <input type="text" required value={name} className='form-control' id='name' name='name' placeholder='Name' onChange={(e) => { setName(e.target.value) }} />
                     </div>
+                    <div className='mb-2'>
                     {email.map((field, index) => (
-                                <div className='mb-2' key={index}>
+                                <div className='mb-1' key={index}>
                                     <div className="input-group">
                                         <input type="text" required className='form-control' value={field} id='email' name='email' placeholder='Email' onChange={(e) => {
                                             const updatedFields = [...email];
                                             updatedFields[index] = e.target.value;
                                             setEmail(updatedFields);
                                         }} />
-                                         <button class="btn btn-outline-secondary" type='button' onClick={
+                                         <button class="btn btn-outline-danger" type='button' onClick={
                                             () => {
 
                                                 if (email.length > 1) {
@@ -99,12 +101,14 @@ export default function FormUpdateContact({ id }) {
 
 
                                             }
-                                        }><span className="material-icons-outlined">remove</span></button>
-                                        <button type='button' class="btn btn-outline-secondary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
+                                        }><span className="material-icons-outlined">delete</span></button>
+                                        <button type='button' class="btn btn-outline-primary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
                                     </div>
 
                                 </div>
                             ))}
+                    </div>
+                    <div className='mb-2'>
                     {phonelist.map((field, index) => (
                         <div className='mb-1' key={index}>
                             <div className="input-group">
@@ -124,7 +128,7 @@ export default function FormUpdateContact({ id }) {
                                     <option value="Office">Office</option>
                                 </select>
 
-                                <button class="btn btn-outline-secondary" type='button' onClick={
+                                <button class="btn btn-outline-danger" type='button' onClick={
                                     () => {
                                         
                                         if(phonelist.length>1){
@@ -139,12 +143,12 @@ export default function FormUpdateContact({ id }) {
                                         
 
                                     }
-                                }><span className="material-icons-outlined">remove</span></button>
-                                <button type='button' class="btn btn-outline-secondary" onClick={addPhone}><span className="material-icons-outlined">add</span></button>
+                                }><span className="material-icons-outlined">delete</span></button>
+                                <button type='button' class="btn btn-outline-primary" onClick={addPhone}><span className="material-icons-outlined">add</span></button>
                             </div>
                         </div>
                     ))}
-                   
+                   </div>
 
                     <div className='mb-2'>
                         <input type="text" className='form-control' id='dob' value={dob} name='dob' placeholder='Date of Birth' onChange={(e) => { setDob(e.target.value) }} />
@@ -153,7 +157,7 @@ export default function FormUpdateContact({ id }) {
                         <button type='submit' className='btn btn-success'>Update</button>
                     </div>
                 </form>
-            </div>
+            
             <ToastContainer />
         </>
     )
