@@ -4,6 +4,7 @@ import { dbConnect } from "@/lib/dbconnect";
 import { User } from "@/lib/models/user"
 import { Contact } from "@/lib/models/contact"
 
+
 export async function GET(req, content){
     let data = {}
     let contactId = await content.params.id
@@ -38,10 +39,12 @@ export async function PUT(req, content){
 export async function DELETE(req, content) {
     let data = {}
     let contactId = await content.params.id
+    let token = await req.headers.get('authorization')
+   
     try {
         await mongoose.connect(dbConnect)
         data = await Contact.deleteOne({ _id: contactId })
-        let user = await User.findOne({ _id: '65c216255b43e7f94734874d' })
+        let user = await User.findOne({ _id: token })
         let itemIndex = user.contact.indexOf(contactId)
         delete user.contact[itemIndex]
         let newArr = [...user.contact]

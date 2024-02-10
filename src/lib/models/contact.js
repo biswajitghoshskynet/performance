@@ -5,9 +5,11 @@ const contactModel = new mongoose.Schema(
          type: String,
          required: [true, 'is required.'],
       },
-      email: {
-         type: String,
-      },
+      email: [
+         {
+            type: String
+         }
+      ],
       phonelist: [
          {
             phone: {

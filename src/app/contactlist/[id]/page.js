@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import moment from 'moment';
+import FormUpdateContact from '../../components/FormUpdateContact'
 
 export default async function page({ params }) {
 
@@ -9,10 +10,10 @@ export default async function page({ params }) {
         cache: 'no-store'
     })
     data = await data.json()
-    console.log(data);
+
     return (
         <>
-
+            <FormUpdateContact id={params.id} />
             <div className='container-fluid'>
 
                 <div className='d-flex justify-content-between mb-3'>
@@ -46,10 +47,23 @@ export default async function page({ params }) {
                         <div className="card">
                             <h5 className="card-header">Contact Details</h5>
                             <div className="card-body">
-                                <p className="mb-1"><span className="material-icons">mail_outline</span> {data.data.email}</p>
-                                <p><span class="material-icons-outlined">cake</span> {data.data.dob}</p>
+                                {data?.data?.email?.map((item, index)=>(
+                                    <p className="mb-1" key={index}><span className="material-icons">mail_outline</span> {item}</p>
+                                ))}
+                                
+                                <p><span className="material-icons-outlined">cake</span> {data.data.dob}</p>
                                 {data.data.phonelist.map((item, index) => (
-                                    <p key={item._id}><span className="material-icons-outlined">phone_iphone</span> {item.phone}</p>
+                                    <p key={item._id}>
+
+                                        <span className="material-icons-outlined">
+                                            {
+                                                item.phonetype === "Home" ? 'home' :
+                                                    item.phonetype === "Office" ? 'apartment' :
+                                                        item.phonetype === "Mobile" ? 'phone_iphone' :
+                                                            'call'
+                                            }
+                                        </span>
+                                        {item.phone} </p>
                                 ))}
 
                             </div>

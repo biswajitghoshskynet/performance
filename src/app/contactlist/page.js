@@ -45,7 +45,7 @@ export default async function page() {
               <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.name ? item.name : null}</td>
-                <td>{item.email ? item.email : null}</td>
+                <td>{item.email[0]?item.email[0]:null}</td>
                 <td>{item.phonelist[0]?.phone}</td>
                 <td className='text-center'><Link href={`/contactlist/${item._id}`} className='text-primary'><span className="material-icons-outlined">
                   visibility
