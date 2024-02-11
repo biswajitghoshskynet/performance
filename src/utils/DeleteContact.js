@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-export default function deleteContact(props) {
+export default function DeleteContact(props) {
     const [owner, setOwner] = useState('')
    
     useEffect(() => {
