@@ -1,28 +1,40 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import FormAddContact from '../components/FormAddContact'
 
 import { getToken } from '@/lib/sitecookies';
 import DeleteContact from '@/utils/DeleteContact'
 import Link from 'next/link';
-import Popup from '../components/Popup';
 
-export default async function page() {
-  let token = await getToken()
 
-  let data = await fetch('http://localhost:3000/api/contact', {
-    cache: 'no-store',
-    headers: {
-      'authorization': token
-    },
+export default function page() {
 
+  const [data, setData] = useState({})
+
+  useEffect(()=>{
+    getresponse()
   })
-  data = await data.json()
+
+  const getresponse = async () => {
+    let token = await getToken()
+    let response = await fetch('http://localhost:3000/api/contact', {
+      cache: 'no-store',
+      headers: {
+        'authorization': token
+      },
+    })
+    response = await response.json()
+    setData(response)
+  
+  }
+
+
 
 
   return (
     <>
       <div className='container-fluid'>
-       
+
         <div className='mb-2'>
 
           <FormAddContact />
@@ -41,18 +53,18 @@ export default async function page() {
           </thead>
           <tbody>
 
-            {data?.data?.length>0?data.data.map((item, index) => (
+            {data?.data?.length > 0 ? data.data.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>{item.name ? item.name : null}</td>
-                <td>{item.email[0]?item.email[0]:null}</td>
+                <td>{item.email[0] ? item.email[0] : null}</td>
                 <td>{item.phonelist[0]?.phone}</td>
                 <td className='text-center'><Link href={`/contactlist/${item._id}`} className='text-primary'><span className="material-icons-outlined">
                   visibility
                 </span></Link></td>
                 <td className='text-center'><DeleteContact id={item._id} /></td>
               </tr>
-            )):<tr><td className='text-center' colSpan={6}>No contact found</td></tr>}
+            )) : <tr><td className='text-center' colSpan={6}>No contact found</td></tr>}
           </tbody>
         </table>
       </div>

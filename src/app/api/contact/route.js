@@ -14,7 +14,7 @@ export async function GET(req) {
 
         if (jwt.verify(token, privateKey)) {
 
-            await mongoose.connect(dbConnect)
+            // await mongoose.connect(dbConnect)
             data = await User.find({ _id: finalToken.user }).populate({
                 path: "contact",
             })
@@ -36,7 +36,7 @@ export async function POST(req) {
     let data = {}
     let payload = await req.json()
     try {
-        await mongoose.connect(dbConnect)
+        // await mongoose.connect(dbConnect)
         let newContact = new Contact(payload)
         data = await newContact.save()
         let user = await User.findOne({ _id: payload.owner })

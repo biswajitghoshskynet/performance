@@ -38,8 +38,8 @@ export default function FormUpdateContact({ id }) {
             setDob(data.data.dob)
             setPhonelist(data.data.phonelist)
         }
-        console.log(data);
-       
+     
+
     }
 
     const addPhone = () => {
@@ -54,7 +54,7 @@ export default function FormUpdateContact({ id }) {
         setEmail(add)
     }
 
- 
+
 
     const formHandle = async (e) => {
         e.preventDefault();
@@ -71,44 +71,47 @@ export default function FormUpdateContact({ id }) {
 
     return mounted && (
         <>
-           <h2>Update Information</h2>
+            <h2>Update Information</h2>
 
-                <form onSubmit={formHandle}>
-                    <div className='mb-2'>
-                        <input type="text" required value={name} className='form-control' id='name' name='name' placeholder='Name' onChange={(e) => { setName(e.target.value) }} />
-                    </div>
-                    <div className='mb-2'>
+            <form onSubmit={formHandle}>
+                <div className='mb-2'>
+                    <input type="text" required value={name} className='form-control' id='name' name='name' placeholder='Name' onChange={(e) => { setName(e.target.value) }} />
+                </div>
+                <div className='mb-2'>
                     {email.map((field, index) => (
-                                <div className='mb-1' key={index}>
-                                    <div className="input-group">
-                                        <input type="text" required className='form-control' value={field} id='email' name='email' placeholder='Email' onChange={(e) => {
-                                            const updatedFields = [...email];
-                                            updatedFields[index] = e.target.value;
-                                            setEmail(updatedFields);
-                                        }} />
-                                         <button class="btn btn-outline-danger" type='button' onClick={
-                                            () => {
+                        <div className='mb-1' key={index}>
+                            <div className="input-group">
+                                <input type="text" required className='form-control' value={field} id='email' name='email' placeholder='Email' onChange={(e) => {
+                                    const updatedFields = [...email];
+                                    updatedFields[index] = e.target.value;
+                                    setEmail(updatedFields);
+                                }} />
+                                
+                                    <button class="btn btn-outline-danger" type='button' onClick={
+                                        () => {
 
-                                                if (email.length > 1) {
-                                                    let updatedFields = [...email];
-                                                    delete updatedFields[index]
+                                            if (email.length > 1) {
+                                                let updatedFields = [...email];
+                                                delete updatedFields[index]
 
-                                                    updatedFields = updatedFields.filter(function (element) {
-                                                        return element !== undefined;
-                                                    });
-                                                    setEmail(updatedFields)
-                                                }
-
-
+                                                updatedFields = updatedFields.filter(function (element) {
+                                                    return element !== undefined;
+                                                });
+                                                setEmail(updatedFields)
                                             }
-                                        }><span className="material-icons-outlined">delete</span></button>
-                                        <button type='button' class="btn btn-outline-primary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
-                                    </div>
 
-                                </div>
-                            ))}
-                    </div>
-                    <div className='mb-2'>
+
+                                        }
+                                    }><span className="material-icons-outlined">delete</span></button>
+                                   
+
+                                <button type='button' class="btn btn-outline-primary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
+                            </div>
+
+                        </div>
+                    ))}
+                </div>
+                <div className='mb-2'>
                     {phonelist.map((field, index) => (
                         <div className='mb-1' key={index}>
                             <div className="input-group">
@@ -117,7 +120,7 @@ export default function FormUpdateContact({ id }) {
                                     updatedFields[index].phone = e.target.value;
                                     setPhonelist(updatedFields);
                                 }} />
-                                <select className="form-select" id="phoneType" value={field.phonetype} onChange={(e)=>{
+                                <select className="form-select" id="phoneType" value={field.phonetype} onChange={(e) => {
                                     const updatedFields = [...phonelist];
                                     updatedFields[index].phonetype = e.target.value;
                                     setPhonelist(updatedFields);
@@ -130,8 +133,8 @@ export default function FormUpdateContact({ id }) {
 
                                 <button class="btn btn-outline-danger" type='button' onClick={
                                     () => {
-                                        
-                                        if(phonelist.length>1){
+
+                                        if (phonelist.length > 1) {
                                             let updatedFields = [...phonelist];
                                             delete updatedFields[index]
 
@@ -140,7 +143,7 @@ export default function FormUpdateContact({ id }) {
                                             });
                                             setPhonelist(updatedFields)
                                         }
-                                        
+
 
                                     }
                                 }><span className="material-icons-outlined">delete</span></button>
@@ -148,16 +151,16 @@ export default function FormUpdateContact({ id }) {
                             </div>
                         </div>
                     ))}
-                   </div>
+                </div>
 
-                    <div className='mb-2'>
-                        <input type="text" className='form-control' id='dob' value={dob} name='dob' placeholder='Date of Birth' onChange={(e) => { setDob(e.target.value) }} />
-                    </div>
-                    <div className='d-grid gap-2'>
-                        <button type='submit' className='btn btn-success'>Update</button>
-                    </div>
-                </form>
-            
+                <div className='mb-2'>
+                    <input type="text" className='form-control' id='dob' value={dob} name='dob' placeholder='Date of Birth' onChange={(e) => { setDob(e.target.value) }} />
+                </div>
+                <div className='d-grid gap-2'>
+                    <button type='submit' className='btn btn-success'>Update</button>
+                </div>
+            </form>
+
             <ToastContainer />
         </>
     )

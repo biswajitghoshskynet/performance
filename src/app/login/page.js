@@ -14,12 +14,15 @@ import {setToken} from '../../lib/sitecookies';
 export default function page() {
    
     const [mounted, setMounted] = useState(false);
+    
     useEffect(() => {
         setMounted(true)
+    
     }, [])
 
     const router = useRouter()
-
+  
+   
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 

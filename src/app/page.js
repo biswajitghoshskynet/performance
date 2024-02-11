@@ -2,10 +2,11 @@
 
 
 
-
+import mongoose from "mongoose";
+import { dbConnect } from "@/lib/dbconnect";
   
-export default function Home() {
- 
+export default async function Home() {
+  await mongoose.connect(dbConnect)
 
   return (
     <main>

@@ -14,7 +14,7 @@ export async function GET(req) {
         let token = await req.headers.get('authorization')
 
         if (jwt.verify(token, privateKey)) {
-            await mongoose.connect(dbConnect)
+            // await mongoose.connect(dbConnect)
             data = await User.find()
             data = { success: true, data }
         }
@@ -33,7 +33,7 @@ export async function POST(req) {
     let result = null
     const payload = await req.json()
     try {
-        await mongoose.connect(dbConnect)
+        // await mongoose.connect(dbConnect)
         let userVerefy = await User.findOne({ email: payload.email })
 
         if (userVerefy?.email == payload.email) {

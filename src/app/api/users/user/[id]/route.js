@@ -8,7 +8,7 @@ export async function GET(req, {params}) {
     let data = []
     
     try {
-        await mongoose.connect(dbConnect)
+        // await mongoose.connect(dbConnect)
         data = await User.find({ _id: params.id })
      
     } catch (error) {
