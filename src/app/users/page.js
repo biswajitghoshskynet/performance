@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { getToken } from '../../lib/sitecookies';
 
 
-export default async function page() {
+export default async function Page() {
     let token = await getToken()
    
     let data = await fetch(`${process.env.HOST}api/users/`,

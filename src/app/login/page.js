@@ -11,7 +11,7 @@ import {setToken} from '../../lib/sitecookies';
 
 
 
-export default function page() {
+export default function Page() {
    
     const [mounted, setMounted] = useState(false);
     

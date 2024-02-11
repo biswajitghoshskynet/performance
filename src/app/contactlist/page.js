@@ -7,7 +7,7 @@ import DeleteContact from '@/utils/DeleteContact'
 import Link from 'next/link';
 
 
-export default function page() {
+export default function Page() {
 
   const [data, setData] = useState({})
 

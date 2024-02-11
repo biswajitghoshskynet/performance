@@ -3,7 +3,7 @@ import React from 'react'
 
 
 
-export default async function page({ params }) {
+export default async function Page({ params }) {
 
     let data = await fetch(`${process.env.HOST}api/users/user/${params.id}`, { cache: 'no-store' })
     data = await data.json()

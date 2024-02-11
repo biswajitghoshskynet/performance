@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function page() {
+export default function Page() {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true)

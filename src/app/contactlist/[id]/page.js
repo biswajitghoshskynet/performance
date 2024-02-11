@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import FormUpdateContact from '../../components/FormUpdateContact'
 
-export default function page({ params }) {
+export default function Page({ params }) {
     const [data, setData] = useState({})
     const [edit, setEdit] = useState(false)
     useEffect(() => {
