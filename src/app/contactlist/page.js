@@ -17,7 +17,7 @@ export default function Page() {
 
   const getresponse = async () => {
     let token = await getToken()
-    let response = await fetch('http://localhost:3000/api/contact', {
+    let response = await fetch(`${process.env.HOST}api/contact`, {
       cache: 'no-store',
       headers: {
         'authorization': token
