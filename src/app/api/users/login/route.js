@@ -16,7 +16,7 @@ export async function POST(req) {
     const payload = await req.json()
    
     try {
-        // await mongoose.connect(dbConnect)
+        await mongoose.connect(dbConnect)
         loginuser = await User.findOne({ email: payload.email })
       
         if (loginuser?.email === payload.email) {
