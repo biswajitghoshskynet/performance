@@ -2,7 +2,7 @@
 const nextConfig = {
     env: {
         JWT_KEY: 'babai12babai',
-        HOST: 'http://localhost:3000/'
+        HOST: process.env.HOST
       },
 };
 
