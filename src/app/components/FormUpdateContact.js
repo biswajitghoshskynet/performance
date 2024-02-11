@@ -125,7 +125,7 @@ export default function FormUpdateContact({ id }) {
                                     updatedFields[index].phonetype = e.target.value;
                                     setPhonelist(updatedFields);
                                 }}>
-                                    <option selected>Choose...</option>
+                                    <option>Choose...</option>
                                     <option value="Mobile">Mobile</option>
                                     <option value="Home">Home</option>
                                     <option value="Office">Office</option>
