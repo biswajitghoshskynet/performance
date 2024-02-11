@@ -94,7 +94,7 @@ export default function FormAddContact() {
                                                 updatedFields[index] = e.target.value;
                                                 setEmail(updatedFields);
                                             }} />
-                                            <button class="btn btn-outline-danger" type='button' onClick={
+                                            <button className="btn btn-outline-danger" type='button' onClick={
                                                 () => {
 
                                                     if (email.length > 1) {
@@ -110,7 +110,7 @@ export default function FormAddContact() {
 
                                                 }
                                             }><span className="material-icons-outlined">delete</span></button>
-                                            <button type='button' class="btn btn-outline-primary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
+                                            <button type='button' className="btn btn-outline-primary" onClick={addEmail}><span className="material-icons-outlined">add</span></button>
                                         </div>
 
                                     </div>
@@ -131,13 +131,13 @@ export default function FormAddContact() {
                                                 updatedFields[index].phonetype = e.target.value;
                                                 setPhonelist(updatedFields);
                                             }}>
-                                                <option selected>Choose...</option>
+                                                <option>Choose...</option>
                                                 <option value="Mobile">Mobile</option>
                                                 <option value="Home">Home</option>
                                                 <option value="Office">Office</option>
                                             </select>
 
-                                            <button class="btn btn-outline-danger" type='button' onClick={
+                                            <button className="btn btn-outline-danger" type='button' onClick={
                                                 () => {
 
                                                     if (phonelist.length > 1) {
@@ -153,7 +153,7 @@ export default function FormAddContact() {
 
                                                 }
                                             }><span className="material-icons-outlined">delete</span></button>
-                                            <button type='button' class="btn btn-outline-primary" onClick={addPhone}><span className="material-icons-outlined">add</span></button>
+                                            <button type='button' className="btn btn-outline-primary" onClick={addPhone}><span className="material-icons-outlined">add</span></button>
                                         </div>
                                     </div>
                                 ))}
