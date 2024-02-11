@@ -9,7 +9,7 @@ export async function GET(req, content){
     let data = {}
     let contactId = await content.params.id
     try {
-    //    await mongoose.connect(dbConnect)
+       await mongoose.connect(dbConnect)
         data = await Contact.findOne({ _id: contactId })
         data = {success: true, data}
     } catch (error) {
@@ -24,7 +24,7 @@ export async function PUT(req, content){
     let contactId = await content.params.id
     
     try {
-        // await mongoose.connect(dbConnect)
+        await mongoose.connect(dbConnect)
         let payload = await req.json()
   
         data = await Contact.findOneAndUpdate({_id: contactId}, payload)
@@ -42,7 +42,7 @@ export async function DELETE(req, content) {
     let token = await req.headers.get('authorization')
    
     try {
-        // await mongoose.connect(dbConnect)
+        await mongoose.connect(dbConnect)
         data = await Contact.deleteOne({ _id: contactId })
         let user = await User.findOne({ _id: token })
         let itemIndex = user.contact.indexOf(contactId)
