@@ -1,17 +1,49 @@
 import mongoose, { Schema } from "mongoose";
 const contactModel = new mongoose.Schema(
    {
-      name: {
+      photo: {
          type: String,
-         required: [true, 'is required.'],
+      },
+      name: {
+         prefix:{
+            type: String,
+         },
+         name: {
+            type: String,
+            required: [true, 'is required.'],
+         },
+         suffix: {
+            type: String,
+         }
+         
+      },
+      organization: {
+         company: {
+            type: String,
+         },
+         jobtitle: {
+            type: String
+         },
+         department: {
+            type: String
+         }
+
       },
       email: [
          {
-            type: String
+            email: {
+               type: String,
+            },
+            emailtype: {
+               type: String
+            }
          }
       ],
       phonelist: [
          {
+            countrycode:{
+               type: String,
+            },
             phone: {
                type: Number,
             },
@@ -22,7 +54,22 @@ const contactModel = new mongoose.Schema(
       ],
       addresslist: [
          {
-            address: {
+            country: {
+               type: String
+            },
+            street: {
+               type: String
+            },
+            city: {
+               type: String
+            },
+            pincode: {
+               type: String
+            },
+            pobox: {
+               type: String
+            },
+            addresstype: {
                type: String
             }
          }
@@ -30,10 +77,21 @@ const contactModel = new mongoose.Schema(
       dob: {
          type: String,
       },
+      notes: {
+         type: String
+      },
+      label: {
+         type: String
+      },
+      favourite: {
+         type: Boolean,
+         default: false
+      },
       owner: {
          type: mongoose.Types.ObjectId,
          ref: "User"
       }
+      
 
    }, { timestamps: true })
 

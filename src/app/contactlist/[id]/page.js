@@ -32,17 +32,16 @@ export default function Page({ params }) {
                     </div>
                     {data?.success === true ?
                         <div>
-                            <button className='text-primary' onClick={() => 
-                                { 
-                                    if(edit===true){
-                                        setEdit(false) 
-                                    }
-                                    else{
-                                        setEdit(true) 
-                                    }
-                                    
-                                }}>
-                                <span className="material-icons-outlined">{edit === true ?'close':'create'}</span>
+                            <button className='text-primary' onClick={() => {
+                                if (edit === true) {
+                                    setEdit(false)
+                                }
+                                else {
+                                    setEdit(true)
+                                }
+
+                            }}>
+                                <span className="material-icons-outlined">{edit === true ? 'close' : 'create'}</span>
                             </button>
                         </div>
                         : null}
@@ -56,11 +55,23 @@ export default function Page({ params }) {
                                 <div className="card mb-3">
                                     <div className="row g-0 align-items-center">
                                         <div className="col-md-4 text-center">
-                                            <span className="material-icons-outlined profileIcon">face</span>
+                                            {
+                                                data?.data?.photo ? 
+                                                <img src={data.data.photo} alt="" />
+                                                : 
+                                                <span className="material-icons-outlined profileIcon">face</span>
+                                            }
+                                            
                                         </div>
                                         <div className="col-md-8">
                                             <div className="card-body">
-                                                <h1>{data.data.name}</h1>
+                                                <h1 className='d-flex gap-2'>
+                                                    <span>{data.data.name.prefix}</span>
+                                                    <span>{data.data.name.name}</span>
+                                                    <span>{data.data.name.suffix}</span>
+
+
+                                                </h1>
                                                 <p><small className="text-body-secondary"><span className="material-icons-outlined">event</span> {moment(data.data.createdAt).format('MMMM Do YYYY, h:mm a')}</small></p>
                                             </div>
                                         </div>
@@ -70,23 +81,61 @@ export default function Page({ params }) {
                                 <div className="card">
                                     <h5 className="card-header">Contact Details</h5>
                                     <div className="card-body">
-                                        {data?.data?.email?.map((item, index) => (
-                                            <p className="mb-1" key={index}><span className="material-icons">mail_outline</span> {item}</p>
-                                        ))}
+                                        {
+                                            data?.data?.email?.map((item, index) => (
+                                                <p className="mb-1" key={index}><span className="material-icons">mail_outline</span> {item.email} ({item.emailtype})</p>
+                                            ))
+                                        }
                                         <p><span className="material-icons-outlined">cake</span> {data.data.dob}</p>
-                                        {data.data.phonelist.map((item, index) => (
-                                            <p key={item._id}>
+                                        {
+                                            data?.data?.organization ?
+                                                <div className='mb-2'>
+                                                    <p className='mb-1'><strong>Organization:-</strong></p>
+                                                    <p className='mb-1'>Company: {data.data.organization.company}</p>
+                                                    <p className='mb-1'>Job title: {data.data.organization.jobtitle}</p>
+                                                    <p className='mb-1'>Department: {data.data.organization.department}</p>
+                                                </div>
+                                                : null
+                                        }
 
-                                                <span className="material-icons-outlined">
-                                                    {
-                                                        item.phonetype === "Home" ? 'home' :
-                                                            item.phonetype === "Office" ? 'apartment' :
-                                                                item.phonetype === "Mobile" ? 'phone_iphone' :
-                                                                    'call'
-                                                    }
-                                                </span>
-                                                {item.phone} </p>
-                                        ))}
+                                        {
+                                            data.data.phonelist.map((item, index) => (
+                                                <p key={item._id}>
+
+                                                    <span className="material-icons-outlined">
+                                                        {
+                                                            item.phonetype === "Home" ? 'home' :
+                                                                item.phonetype === "Office" ? 'apartment' :
+                                                                    item.phonetype === "Mobile" ? 'phone_iphone' :
+                                                                        'call'
+                                                        }
+                                                    </span>
+                                                    {item.countrycode} {item.phone} </p>
+                                            ))
+                                        }
+
+                                        {
+                                            data?.data?.addresslist?.map((item, index) => (
+                                                <div key={index}>
+                                                    <p className='mb-2'>
+                                                        <strong>Address:-</strong><br />
+                                                        {item.country}, {item.street}, {item.city}, {item.pincode}, {item.pobox} ({item.addresstype})
+                                                    </p>
+                                                </div>
+                                            ))
+                                        }
+
+                                        {
+                                            data?.data?.notes ?
+                                                <p><strong>Note:-</strong>  {data.data.notes}</p>
+                                                : null
+                                        }
+                                        {
+                                            data?.data?.label ?
+                                                <p><strong>Label:-</strong>  {data.data.label}</p>
+                                                : null
+                                        }
+                                        <p><strong>favourite-</strong> {data?.data?.favourite === true ? 'True' : "False"}</p>
                                     </div>
                                 </div>
                             </div>

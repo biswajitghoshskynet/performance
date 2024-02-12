@@ -13,7 +13,7 @@ export default function Page() {
 
   useEffect(()=>{
     getresponse()
-  })
+  },[])
 
   const getresponse = async () => {
     let token = await getToken()
@@ -36,7 +36,7 @@ export default function Page() {
       <div className='container-fluid'>
 
         <div className='mb-2'>
-
+{console.log(data)}
           <FormAddContact />
           {/* <ContactForm/> */}
         </div>
@@ -56,8 +56,8 @@ export default function Page() {
             {data?.data?.length > 0 ? data.data.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
-                <td>{item.name ? item.name : null}</td>
-                <td>{item.email[0] ? item.email[0] : null}</td>
+                <td>{item.name.name ? item.name.name : null}</td>
+                <td>{item.email[0]? item.email[0].email : null}</td>
                 <td>{item.phonelist[0]?.phone}</td>
                 <td className='text-center'><Link href={`/contactlist/${item._id}`} className='text-primary'><span className="material-icons-outlined">
                   visibility
