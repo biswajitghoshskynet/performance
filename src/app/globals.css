@@ -187,8 +187,12 @@ h2,
   font-weight: 700;
 }
 
-h3 {
+h3, .h3 {
   font-size: 18px;
+  font-weight: 700;
+}
+h4, .h4 {
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -299,7 +303,15 @@ header {
 .input-group .btn {
   padding: 8px 8px;
 }
-
+.favouriteIcon{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #d6d2d2;
+}
+.favouriteIcon .material-icons-outlined{
+  font-size: 35px;
+}
 @media (min-width: 1536px) {
   .container {
     max-width: 1170px;
