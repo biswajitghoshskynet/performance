@@ -8,38 +8,42 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-export default function DeleteContact(props) {
+export default function DeleteContact({ id, setReload, reload }) {
     const [owner, setOwner] = useState('')
-   
+
     useEffect(() => {
 
         let user = localStorage.getItem('userid')
         setOwner(user)
     }, [])
-   
- 
-    const id = props.id
-    
+
+
+
+
     const handleFatch = async () => {
 
-          let data = await fetch(`${process.env.HOST}api/contact/${id}`, {
-                cache: 'no-store',
-                method: 'delete',
-                headers: {
-                    'authorization': owner
-                },
-            })
+        let data = await fetch(`${process.env.HOST}api/contact/${id}`, {
+            cache: 'no-store',
+            method: 'delete',
+            headers: {
+                'authorization': owner
+            },
+        })
+        data = await data.json()
+        if (data?.acknowledged === true) {
+            toast.success('Contact Deleted');
+            setReload(reload + 1)
+        }
 
-            data = await data.json()
-            if(data?.acknowledged === true){
-                toast.success('Contact Deleted');
-              
-            }
+           
+           
+
+
 
 
     }
 
-    return  (
+    return (
         <>
             <button onClick={handleFatch} className='text-danger'><span className="material-icons-outlined">
                 delete

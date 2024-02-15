@@ -4,7 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function FormUpdateContact({ id }) {
+
+export default function FormUpdateContact({ id, setReload, reload }) {
     const [mounted, setMounted] = useState(false);
     let data = {}
 
@@ -121,7 +122,8 @@ export default function FormUpdateContact({ id }) {
             body: JSON.stringify({ photo, name, organization, email, phonelist, addresslist, dob, notes, label })
         }).then(() => {
             toast.success('Update complete');
-
+        }).then(() => {
+            setReload(reload + 1)
         })
     }
 
@@ -129,7 +131,7 @@ export default function FormUpdateContact({ id }) {
         <>
             <h2>Update Information</h2>
 
-          
+
             <div className='mb-2'>
                 <form onSubmit={formHandle}>
                     {/* photo */}

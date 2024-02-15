@@ -4,13 +4,16 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import FormUpdateContact from '../../components/FormUpdateContact'
+import Favourite from '../../components/Favourite'
+
 
 export default function Page({ params }) {
     const [data, setData] = useState({})
     const [edit, setEdit] = useState(false)
+    const [reload, setReload] = useState(1)
     useEffect(() => {
         loadContact()
-    })
+    }, [reload])
 
     const loadContact = async () => {
         let response = await fetch(`${process.env.HOST}api/contact/${params.id}`, {
@@ -19,6 +22,7 @@ export default function Page({ params }) {
         response = await response.json()
         setData(response)
     }
+
 
 
     return (
@@ -50,18 +54,13 @@ export default function Page({ params }) {
 
                 <div className='row'>
                     <div className={edit === true ? 'col-md-6' : 'col-md-12'}>
+                   
                         {data?.success === true ?
                             <div>
                                 <div className="card mb-3 position-relative">
-                                    <div className='mb-3 favouriteIcon'>
-                                        <span className={`material-icons-outlined 
-                                        ${data?.data?.favourite === true ? 'text-warning' : null}
-                                        `}>
-                                            {
-                                                data?.data?.favourite === true ? 'star' : 'star_outline'
-                                            }
-                                        </span>
-                                    </div>
+                                    {/* <div className='mb-3 favouriteIcon'>
+                                        <Favourite id={params.id} setReload={setReload} reload={reload}/>
+                                    </div> */}
                                     <div className="row g-0 align-items-center">
                                         <div className="col-md-4 text-center">
                                             {
@@ -76,14 +75,14 @@ export default function Page({ params }) {
 
                                             <div className="card-body">
                                                 <div className='mb-3'>
-                                                <h1 className='d-flex gap-2 mb-1'>
-                                                    <span>{data.data.name.prefix}</span>
-                                                    <span>{data.data.name.name}</span>
-                                                    <span>{data.data.name.suffix}</span>
-                                                </h1>
-                                                <p className='mb-0'><span className="material-icons-outlined">cake</span> {data.data.dob}</p>
+                                                    <h1 className='d-flex gap-2 mb-1'>
+                                                        <span>{data.data.name.prefix}</span>
+                                                        <span>{data.data.name.name}</span>
+                                                        <span>{data.data.name.suffix}</span>
+                                                    </h1>
+                                                    <p className='mb-0'><span className="material-icons-outlined">cake</span> {data.data.dob}</p>
                                                 </div>
-                                               
+
                                                 <div className='mb-3'>
                                                     <div className='mb-1'>
                                                         {
@@ -195,7 +194,7 @@ export default function Page({ params }) {
                     </div>
                     {edit === true ?
                         <div className='col-md-6'>
-                            <FormUpdateContact id={params.id} />
+                            <FormUpdateContact id={params.id} setReload={setReload} reload={reload} />
                         </div>
                         : null}
 

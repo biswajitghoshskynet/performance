@@ -1,10 +1,9 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
-export default function FormAddContact() {
+
+export default function FormAddContact({ setReload, reload }) {
     const [mounted, setMounted] = useState(false);
     const [display, setDisplay] = useState(false)
 
@@ -55,7 +54,7 @@ export default function FormAddContact() {
     )
     const [dob, setDob] = useState('')
     const [notes, setNotes] = useState('')
-    const [label, setLebel] = useState('')
+    const [label, setLebel] = useState(' ')
     const [owner, setOwner] = useState()
 
 
@@ -97,12 +96,11 @@ export default function FormAddContact() {
 
     const formHandle = async (e) => {
         e.preventDefault();
-        await fetch(`${process.env.HOST}api/contact`, {
+        let response = await fetch(`${process.env.HOST}api/contact`, {
             cache: 'no-store',
             method: "POST",
             body: JSON.stringify({ photo, name, organization, email, phonelist, addresslist, dob, notes, label, owner })
-        }).then(() => {
-            toast.success('Contact Added');
+        }).then(()=>{
             setPhoto('')
             setName(
                 {
@@ -150,10 +148,18 @@ export default function FormAddContact() {
 
             setDob('')
             setNotes('')
-            setLebel('')
-        }).then(() => {
+            setLebel(' ')
+
             setDisplay(false)
+            setReload(reload + 1)
         })
+
+       
+            
+
+
+
+
 
     }
 
@@ -441,7 +447,7 @@ export default function FormAddContact() {
                 </>
                 : null}
 
-            <ToastContainer />
+           
         </>
     )
 }

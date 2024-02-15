@@ -7,10 +7,12 @@ const contactModel = new mongoose.Schema(
       name: {
          prefix:{
             type: String,
+            
          },
          name: {
             type: String,
             required: [true, 'is required.'],
+            lowercase: true
          },
          suffix: {
             type: String,
