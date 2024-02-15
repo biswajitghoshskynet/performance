@@ -58,9 +58,9 @@ export default function Page({ params }) {
                         {data?.success === true ?
                             <div>
                                 <div className="card mb-3 position-relative">
-                                    {/* <div className='mb-3 favouriteIcon'>
+                                    <div className='mb-3 favouriteIcon'>
                                         <Favourite id={params.id} setReload={setReload} reload={reload}/>
-                                    </div> */}
+                                    </div>
                                     <div className="row g-0 align-items-center">
                                         <div className="col-md-4 text-center">
                                             {

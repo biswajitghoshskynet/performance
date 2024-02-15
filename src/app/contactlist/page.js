@@ -5,6 +5,7 @@ import FormAddContact from '../components/FormAddContact'
 import { getToken } from '@/lib/sitecookies';
 import DeleteContact from '@/utils/DeleteContact'
 import Link from 'next/link';
+import Favourite from '../components/Favourite';
 
 
 export default function Page() {
@@ -12,6 +13,7 @@ export default function Page() {
 
   const [filter, setFilter] = useState('All')
   const [search, setSearch] = useState(null)
+  const [filterFav, setFilterFav] = useState(null)
 
 
   const [data, setData] = useState({})
@@ -22,6 +24,15 @@ export default function Page() {
     getresponse()
 
   }, [reload])
+
+  const handleFav = (e) => {
+    if (e.target.checked) {
+      setFilterFav(true)
+    }
+    else {
+      setFilterFav(null)
+    }
+  }
 
   const getresponse = async () => {
     let token = await getToken()
@@ -44,9 +55,7 @@ export default function Page() {
       <div className='container-fluid'>
         {console.log(data)}
         <div className='mb-2'>
-
           <FormAddContact setReload={setReload} reload={reload} />
-
         </div>
 
 
@@ -62,6 +71,13 @@ export default function Page() {
                 <option value="Others">Others</option>
               </select>
             </div>
+            <div className='d-flex gap-2'>
+              <input type="checkbox" className="form-check-input" id='fav' onChange={handleFav} />
+              <label className="form-check-label" htmlFor="fav">
+              Favourite
+              </label>
+            </div>
+
           </div>
           <div>
             <input type="text" className='form-control' name='search' id='search' placeholder='Search' onChange={(e) => { setSearch(e.target.value) }} />
@@ -76,6 +92,7 @@ export default function Page() {
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
               <th scope="col">label</th>
+              <th scope="col">Fav</th>
               <th scope="col" className='text-center'>View</th>
               <th scope="col" className='text-center'>Delete</th>
             </tr>
@@ -87,8 +104,10 @@ export default function Page() {
                 filter == 'All' ? item.label : item.label == filter
               ))
               .filter((item) => (
-
                 search == null ? item.label : item.name.name.match(search)
+              ))
+              .filter((item) => (
+                filterFav == null ? item.favourite != undefined : item.favourite == true
               ))
               .map((item, index) => (
                 <tr key={item._id}>
@@ -97,12 +116,13 @@ export default function Page() {
                   <td>{item.email[0] ? item.email[0].email : null}</td>
                   <td>{item.phonelist[0]?.phone}</td>
                   <td>{item.label}</td>
+                  <td><Favourite id={item._id} setReload={setReload} reload={reload} /></td>
                   <td className='text-center'><Link href={`/contactlist/${item._id}`} className='text-primary'><span className="material-icons-outlined">
                     visibility
                   </span></Link></td>
                   <td className='text-center'><DeleteContact id={item._id} setReload={setReload} reload={reload} /></td>
                 </tr>
-              )) : <tr><td className='text-center' colSpan={7}>No contact found</td></tr>}
+              )) : <tr><td className='text-center' colSpan={8}>No contact found</td></tr>}
           </tbody>
         </table>
       </div>
