@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from 'react'
 
 
+import CreatableSelect from 'react-select/creatable';
+
+
 
 export default function FormAddContact({ setReload, reload }) {
     const [mounted, setMounted] = useState(false);
     const [display, setDisplay] = useState(false)
+
 
 
     const [photo, setPhoto] = useState('')
@@ -55,7 +59,7 @@ export default function FormAddContact({ setReload, reload }) {
     const [dob, setDob] = useState('')
     const [notes, setNotes] = useState('')
     const [label, setLebel] = useState(' ')
-    const [customLabel, setCustomLabel] = useState('')
+
     const [owner, setOwner] = useState()
 
 
@@ -104,15 +108,15 @@ export default function FormAddContact({ setReload, reload }) {
         let validRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
         return validRegex.test(phone)
     }
-   
-        
-    
-    
+
+
+
+
     const formHandle = (e) => {
         e.preventDefault();
-        
+
         const sendData = async () => {
-          
+
             let response = await fetch(`${process.env.HOST}api/contact`, {
                 cache: 'no-store',
                 method: "POST",
@@ -166,7 +170,7 @@ export default function FormAddContact({ setReload, reload }) {
                 setDob('')
                 setNotes('')
                 setLebel(' ')
-                setCustomLabel('')
+
                 setDisplay(false)
                 setReload(reload + 1)
             })
@@ -207,6 +211,27 @@ export default function FormAddContact({ setReload, reload }) {
     const handleDisplayClose = () => {
         setDisplay(false)
     }
+
+    const labelOptions = [
+        { value: 'Friend', label: 'Friend' },
+        { value: 'Family', label: 'Family' },
+        { value: 'Office', label: 'Office' }
+    ]
+    const phoneLabelOptions = [
+        { value: 'Mobile', label: 'Mobile' },
+        { value: 'Home', label: 'Home' },
+        { value: 'Office', label: 'Office' }
+    ]
+    const emailLabelOptions = [
+        { value: 'Friend', label: 'Personal' },
+        { value: 'Personal', label: 'Email' },
+        { value: 'Office', label: 'Office' }
+    ]
+    const addressLabelOptions = [
+        { value: 'Home', label: 'Home' },
+        { value: 'Office', label: 'Office' }
+    ]
+
 
     return mounted && (
         <>
@@ -307,7 +332,7 @@ export default function FormAddContact({ setReload, reload }) {
                                                 setEmail(value);
                                             }} />
 
-                                            <select className="form-select" id="emailtype" value={field.emailtype} onChange={(e) => {
+                                            {/* <select className="form-select" id="emailtype" value={field.emailtype} onChange={(e) => {
                                                 let value = [...email];
                                                 value[index].emailtype = e.target.value;
                                                 setEmail(value);
@@ -316,7 +341,17 @@ export default function FormAddContact({ setReload, reload }) {
                                                 <option value="Personal">Personal</option>
                                                 <option value="Home">Home</option>
                                                 <option value="Office">Office</option>
-                                            </select>
+                                            </select> */}
+                                            <CreatableSelect
+                                                isClearable
+                                                options={emailLabelOptions}
+                                                onChange={(newValue) => {
+                                                    let value = [...email];
+                                                    value[index].emailtype = newValue?.value;
+                                                    setEmail(value);
+                                                }}
+                                               
+                                            />
                                             <button className="btn btn-outline-danger" type='button' onClick={
                                                 () => {
 
@@ -576,16 +611,17 @@ export default function FormAddContact({ setReload, reload }) {
                                                 value[index].phone = e.target.value;
                                                 setPhonelist(value);
                                             }} />
-                                            <select className="form-select" id="phoneType" value={field.phonetype} onChange={(e) => {
-                                                let value = [...phonelist];
-                                                value[index].phonetype = e.target.value;
-                                                setPhonelist(value);
-                                            }}>
-                                                <option>Label...</option>
-                                                <option value="Mobile">Mobile</option>
-                                                <option value="Home">Home</option>
-                                                <option value="Office">Office</option>
-                                            </select>
+                                            
+                                            <CreatableSelect
+                                                isClearable
+                                                options={phoneLabelOptions}
+                                                onChange={(newValue) => {
+                                                    let value = [...phonelist];
+                                                    value[index].phonetype = newValue?.value;
+                                                    setPhonelist(value);
+                                                }}
+                                               
+                                            />
                                             <button className="btn btn-outline-danger" type='button' onClick={
                                                 () => {
                                                     if (phonelist.length > 1) {
@@ -647,15 +683,17 @@ export default function FormAddContact({ setReload, reload }) {
                                             }} />
                                         </div>
                                         <div className='col-md-6'>
-                                            <select className="form-select" id="addresstype" value={field.addresstype} onChange={(e) => {
-                                                let value = [...addresslist];
-                                                value[index].addresstype = e.target.value;
-                                                setAddresslist(value);
-                                            }}>
-                                                <option>Label...</option>
-                                                <option value="Home">Home</option>
-                                                <option value="Office">Office</option>
-                                            </select>
+                                            
+                                            <CreatableSelect
+                                                isClearable
+                                                options={addressLabelOptions}
+                                                onChange={(newValue) => {
+                                                    let value = [...addresslist];
+                                                    value[index].addresstype = newValue?.value;
+                                                    setAddresslist(value);
+                                                }}
+                                               
+                                            />
                                         </div>
                                         <div className='col-md-12 text-end'>
                                             <button className="btn btn-outline-danger" type='button' onClick={
@@ -695,23 +733,11 @@ export default function FormAddContact({ setReload, reload }) {
 
                             {/* Label */}
                             <div className='mb-2'>
-                                <div className='mb-1'>
-                                    <select className="form-select" id="label" value={label} onChange={(e) => { setLebel(e.target.value) }}>
-                                        <option>Label...</option>
-                                        <option value="Friend">Friend</option>
-                                        <option value="Family">Family</option>
-                                        <option value="Office">Office</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-
-                                {
-                                    label === "Other" ?
-                                        <input name='other' id='other' onChange={(e) => { setCustomLabel(e.target.value) }} required className='form-control' />
-    
-                                        : null
-                                }
-
+                                <CreatableSelect
+                                    isClearable
+                                    options={labelOptions}
+                                    onChange={(newValue) => setLebel(newValue?.value)}
+                                />
                             </div>
 
 

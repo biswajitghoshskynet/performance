@@ -15,6 +15,8 @@ export default function Page() {
   const [search, setSearch] = useState(null)
   const [filterFav, setFilterFav] = useState(null)
 
+  const [labelList, setLabelList] = useState([])
+
 
   const [data, setData] = useState({})
   const [reload, setReload] = useState(1)
@@ -44,9 +46,19 @@ export default function Page() {
     })
     response = await response.json()
     setData(response)
+    setLabelList([])
 
+    response.data.forEach(item => {
+      if (item.label !== ' ') {
+        if (item.label !== '') {
+          setLabelList((labelList) => {
+            return [...labelList, item.label]
+          })
+
+        }
+      }
+    });
   }
-
 
 
 
@@ -54,6 +66,7 @@ export default function Page() {
     <>
       <div className='container-fluid'>
         {console.log(data)}
+        {console.log(labelList)}
         <div className='mb-2'>
           <FormAddContact setReload={setReload} reload={reload} />
         </div>
@@ -63,18 +76,21 @@ export default function Page() {
           <div className='d-flex gap-3 align-items-center'>
             <div><h4 className='mb-0'>Filter By</h4></div>
             <div>
+
               <select className="form-select" id="label" value={filter} onChange={(e) => { setFilter(e.target.value) }}>
                 <option value="All">All</option>
-                <option value="Friend">Friend</option>
-                <option value="Family">Family</option>
-                <option value="Office">Office</option>
-                <option value="Others">Others</option>
+                {
+                 [...new Set(labelList)].map((item) => (
+                  <option value={item}>{item}</option>
+                ))
+
+                }
               </select>
             </div>
             <div className='d-flex gap-2'>
               <input type="checkbox" className="form-check-input" id='fav' onChange={handleFav} />
               <label className="form-check-label" htmlFor="fav">
-              Favourite
+                Favourite
               </label>
             </div>
 
@@ -83,7 +99,9 @@ export default function Page() {
             <input type="text" className='form-control' name='search' id='search' placeholder='Search' onChange={(e) => { setSearch(e.target.value) }} />
           </div>
         </div>
-        {console.log(search)}
+
+
+
         <table className="table">
           <thead>
             <tr>
