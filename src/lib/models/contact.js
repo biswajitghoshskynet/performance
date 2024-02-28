@@ -83,7 +83,8 @@ const contactModel = new mongoose.Schema(
          type: String
       },
       label: {
-         type: String
+         type: String,
+         default: ' '
       },
       favourite: {
          type: Boolean,
