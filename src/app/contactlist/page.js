@@ -80,8 +80,8 @@ export default function Page() {
               <select className="form-select" id="label" value={filter} onChange={(e) => { setFilter(e.target.value) }}>
                 <option value="All">All</option>
                 {
-                 [...new Set(labelList)].map((item) => (
-                  <option value={item}>{item}</option>
+                 [...new Set(labelList)].map((item, index) => (
+                  <option value={item} key={index}>{item}</option>
                 ))
 
                 }
